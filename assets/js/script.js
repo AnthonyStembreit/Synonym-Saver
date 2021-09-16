@@ -1,9 +1,12 @@
+//saved data
 let synonymGroups;
 if(JSON.parse(localStorage.getItem("synonym-groups"))){
     synonymGroups = JSON.parse(localStorage.getItem("synonym-groups"))
 }else{
     synonymGroups = []
 }
+
+//navigation
 function changeView(section) {
     //hides all section tags
     $("section").removeClass("show").addClass("hide")
@@ -22,6 +25,7 @@ $("#searchNav, #inspirationNav, #savedNav").on("click", function (event) {
     }
 })
 
+//inspiration
 function generateRandomWord() {
     //api call that generates random word
     fetch("https://random-word-api.herokuapp.com/word")
@@ -34,6 +38,7 @@ function generateRandomWord() {
 //listens to the new word button and generates new word when clicked
 $("#newWordBtn").on("click", generateRandomWord)
 
+//search
 $("#searchBtn").on("click", function (event) {
     event.preventDefault()
     let word = $("#searchWord").val().toLowerCase()
@@ -55,30 +60,17 @@ function generateSynonyms(word) {
             generateListItems(data.synonyms)
         })
 }
-generateListItems([
-    "model",
-    "exemplar",
-    "good example",
-    "case",
-    "instance",
-    "illustration",
-    "representative",
-    "deterrent example",
-    "lesson",
-    "object lesson",
-    "exercise"
-  ])
 function generateListItems(synonymsArr) {
     synonymsArr.map(function (syn) {
-        $("#searchResults").append(`<li><label>${syn}</label> <input type=checkbox class="pure-input addSyn" value='${syn}'></input></li>`)
+        $("#searchResults").append(`<li><label>${syn}</labrl> <input type=checkbox class="pure-input addSyn" value=${syn}></input></li>`)
     })
 }
 $("#saveBtn").on("click", function(event){
-    synObj = {
+    event.preventDefault();
+   let synObj = {
         mainWord: $("#currentSearch").val(),
         synonyms: []
     }
-    event.preventDefault();
   $.each( $(".addSyn"), function(){
        if(this.checked === true){
             synObj.synonyms.push(this.value)
@@ -87,3 +79,10 @@ $("#saveBtn").on("click", function(event){
    synonymGroups.push(synObj)
    localStorage.setItem("synonym-groups", JSON.stringify(synonymGroups))
 })
+
+//saved
+function generateSavedSynonyms(synonymGroups){
+    $.each(synonymGroups, function(syn){
+        $("#saved").append(`<div><h3>${syn.name}</h3><ul id=${syn.name}></ul></div>`)
+    })
+}
