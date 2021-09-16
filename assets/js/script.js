@@ -11,18 +11,18 @@ $("#searchNav, #inspirationNav, #savedNav").on("click", function(event){
     var section =  this.id.split("Nav")[0]
     //passes that section to the changeView function
     changeView($("#" + section))
-    console.log(section)
     if(section === "inspiration"){
-        randomWordApi()
+        generateRandomWord()
     }
 })
 
-function randomWordApi(){
-    fetch("https://random-word-form.herokuapp.com/random/adjective")
+function generateRandomWord(){
+    fetch("https://random-word-api.herokuapp.com/word")
     .then( res => res.json())
     .then( data => {
-        console.log(data)
-        return data
+        console.log(data[0])
+       $("#randomWord").text(data[0])
     })
 }
+
 
