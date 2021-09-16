@@ -29,11 +29,15 @@
     <section id="search">
         <form class="pure-form">
             <fieldset>
-                <input type="text" placeholder="Search for Synonyms" class="pure-input-rounded" />
+                <input type="text" placeholder="Search for Synonyms" class="pure-input-rounded" id="searchWord" />
                 <button type="submit" class="pure-button" id="searchBtn">Search</button>
             </fieldset>
         </form>
-        <ul id="searchResults"></ul>
+        <form>
+            <p id="currentSearch"></p>
+            <ul id="searchResults"></ul>
+            <button type="submit" class="pure-button" id="saveBtn">ADD</button>
+        </form>
     </section>
     <section id="saved" class="hide">
 
