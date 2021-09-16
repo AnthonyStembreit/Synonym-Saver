@@ -24,5 +24,5 @@ function generateRandomWord(){
        $("#randomWord").text(data[0])
     })
 }
-
+$("#newWordBtn").on("click", generateRandomWord)
 
