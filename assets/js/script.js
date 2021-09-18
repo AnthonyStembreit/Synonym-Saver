@@ -23,6 +23,9 @@ $("#searchNav, #inspirationNav, #savedNav").on("click", function (event) {
     if (section === "inspiration") {
         generateRandomWord()
     }
+    else if(section === "saved"){
+        generateSavedSynonyms(synonymGroups)
+    }
 })
 
 //inspiration
@@ -41,6 +44,7 @@ $("#newWordBtn").on("click", generateRandomWord)
 //search
 $("#searchBtn").on("click", function (event) {
     event.preventDefault()
+    $("#saveBtn").removeClass("hide").addClass("show")
     let word = $("#searchWord").val().toLowerCase()
     if(word === ""){
         //TODO add error message
@@ -57,16 +61,18 @@ function generateSynonyms(word) {
         .then(data => {
             console.log(data)
             $("#currentSearch").text(data.word)
-            generateListItems(data.synonyms)
+            generateSynonyms(data.synonyms)
         })
 }
-function generateListItems(synonymsArr) {
+function generateSynonyms(synonymsArr) {
     synonymsArr.map(function (syn) {
-        $("#searchResults").append(`<li><label>${syn}</labrl> <input type=checkbox class="pure-input addSyn" value=${syn}></input></li>`)
+        $("#searchResults").append(`<li><label>${syn}</label> <input type=checkbox class="pure-input addSyn" value=${syn}></input></li>`)
     })
 }
 $("#saveBtn").on("click", function(event){
     event.preventDefault();
+    $("#searchResults").empty();
+    $("#saveBtn").removeClass("show").addClass("hide");
    let synObj = {
         mainWord: $("#currentSearch").val(),
         synonyms: []
@@ -82,7 +88,16 @@ $("#saveBtn").on("click", function(event){
 
 //saved
 function generateSavedSynonyms(synonymGroups){
-    $.each(synonymGroups, function(syn){
-        $("#saved").append(`<div><h3>${syn.name}</h3><ul id=${syn.name}></ul></div>`)
+    $.each(synonymGroups, function(){
+       
+        $("#saved").append(`<div><h3>${this.name}</h3><ul>${generateListItems(this.synonyms)}</ul></div>`)
     })
+}
+function generateListItems(synonymsArr) {
+  let mapped =  synonymsArr.map(function (syn) {
+        console.log(syn)
+        return `<li>${syn}</li>`
+    })
+    console.log(mapped)
+    return mapped.join("")
 }
