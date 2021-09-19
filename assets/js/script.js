@@ -1,8 +1,8 @@
 //saved data
 let synonymGroups;
-if(JSON.parse(localStorage.getItem("synonym-groups"))){
+if (JSON.parse(localStorage.getItem("synonym-groups"))) {
     synonymGroups = JSON.parse(localStorage.getItem("synonym-groups"))
-}else{
+} else {
     synonymGroups = []
 }
 
@@ -23,7 +23,7 @@ $("#searchNav, #inspirationNav, #savedNav").on("click", function (event) {
     if (section === "inspiration") {
         generateRandomWord()
     }
-    else if(section === "saved"){
+    else if (section === "saved") {
         generateSavedSynonyms(synonymGroups)
     }
 })
@@ -44,9 +44,9 @@ $("#newWordBtn").on("click", generateRandomWord)
 //search
 $("#searchBtn").on("click", function (event) {
     event.preventDefault()
-    $("#saveBtn").removeClass("hide").addClass("show")
+    $("#saveForm").removeClass("hide").addClass("show")
     let word = $("#searchWord").val().toLowerCase()
-    if(word === ""){
+    if (word === "") {
         //TODO add error message
         return;
     }
@@ -69,35 +69,44 @@ function generateSynonyms(synonymsArr) {
         $("#searchResults").append(`<li><label>${syn}</label> <input type=checkbox class="pure-input addSyn" value=${syn}></input></li>`)
     })
 }
-$("#saveBtn").on("click", function(event){
+$("#saveBtn").on("click", function (event) {
     event.preventDefault();
-    $("#searchResults").empty();
-    $("#saveBtn").removeClass("show").addClass("hide");
-   let synObj = {
+    //create object of searched word and it's synonyms
+    let synObj = {
         mainWord: $("#currentSearch").val(),
         synonyms: []
     }
-  $.each( $(".addSyn"), function(){
-       if(this.checked === true){
+    //loop over synonyms
+    $.each($(".addSyn"), function () {
+        //if the synonym was chosen to be saved
+        if (this.checked === true) {
+            //then add that synonym to the synonyms array in the synObj
             synObj.synonyms.push(this.value)
-       }
-   })
-   synonymGroups.push(synObj)
-   localStorage.setItem("synonym-groups", JSON.stringify(synonymGroups))
+        }
+    })
+    //add searched word and its synonyms to the array of searches
+    synonymGroups.push(synObj)
+    //and store that list in local storage
+    localStorage.setItem("synonym-groups", JSON.stringify(synonymGroups))
+    //hide results
+    $("#searchResults").empty();
+    $("#saveForm").removeClass("show").addClass("hide");
 })
 
 //saved
-function generateSavedSynonyms(synonymGroups){
-    $.each(synonymGroups, function(){
-       
+function generateSavedSynonyms(synonymGroups) {
+    $("#saved").empty()
+    //loop over saved searches
+    $.each(synonymGroups, function () {
+        //and append a card for each one
         $("#saved").append(`<div><h3>${this.name}</h3><ul>${generateListItems(this.synonyms)}</ul></div>`)
     })
 }
-function generateListItems(synonymsArr) {
-  let mapped =  synonymsArr.map(function (syn) {
-        console.log(syn)
+function generateListItems(synonymsArr) { 
+    //and returns an array of li of the synonyms
+    let mapped = synonymsArr.map(function (syn) {
         return `<li>${syn}</li>`
     })
-    console.log(mapped)
+    //returns the array of li joined without commas
     return mapped.join("")
 }

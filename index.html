@@ -27,16 +27,14 @@
         </ul>
     </div>
     <section id="search">
-        <form class="pure-form">
-            <fieldset>
+        <form class="pure-form" id="searchForm">
                 <input type="text" placeholder="Search for Synonyms" class="pure-input-rounded" id="searchWord" />
                 <button type="submit" class="pure-button" id="searchBtn">Search</button>
-            </fieldset>
         </form>
-        <form>
+        <form class="hide" id="saveForm">
             <p id="currentSearch"></p>
             <ul id="searchResults"></ul>
-            <button type="submit" class="pure-button hide" id="saveBtn">ADD</button>
+            <button type="submit" class="pure-button" id="saveBtn">ADD</button>
         </form>
     </section>
     <section id="saved" class="hide">
