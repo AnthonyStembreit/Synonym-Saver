@@ -35,7 +35,8 @@ function generateRandomWord() {
         .then(res => res.json())
         .then(data => {
             //puts random word into html
-            $("#randomWord").text(data[0])
+            let word = data[0].charAt(0).toUpperCase() + data[0].slice(1)
+            $("#randomWord").text(word)
         })
 }
 //listens to the new word button and generates new word when clicked
