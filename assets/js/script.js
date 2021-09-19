@@ -33,8 +33,8 @@ function generateRandomWord() {
         .then(res => res.json())
         .then(data => {
             //puts random word into html
-            let word = data[0].charAt(0).toUpperCase() + data[0].slice(1)
-            $("#randomWord").text(word)
+            let randomWord = data[0].charAt(0).toUpperCase() + data[0].slice(1)
+            $("#randomWord").text(randomWord)
         })
 }
 //listens to the new word button and generates new word when clicked
@@ -43,12 +43,14 @@ $("#newWordBtn").on("click", generateRandomWord)
 //search
 $("#searchBtn").on("click", function (event) {
     event.preventDefault()
+    //show the save form
     $("#saveForm").removeClass("hide").addClass("show")
     let word = $("#searchWord").val().toLowerCase()
     if (word === "") {
         //TODO add error message
         return;
     }
+    //call api to generate synonyms
     generateSynonyms(word)
 })
 
@@ -59,12 +61,15 @@ function generateSynonyms(word) {
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            $("#currentSearch").text(data.word)
+            let searchedWord = data.word.charAt(0).toUpperCase() + data.word.slice(1)
+            $("#currentSearch").text(searchedWord)
             generateSynonyms(data.synonyms)
         })
 }
 function generateSynonyms(synonymsArr) {
+    //loops over synonyms returned from api call
     synonymsArr.map(function (syn) {
+        //appends a check box input for each synonym to the html form
         $("#searchResults").append(`<li><label>${syn}</label> <input type=checkbox class="pure-input addSyn" value=${syn}></input></li>`)
     })
 }
@@ -87,7 +92,7 @@ $("#saveBtn").on("click", function (event) {
     synonymGroups.push(synObj)
     //and store that list in local storage
     localStorage.setItem("synonym-groups", JSON.stringify(synonymGroups))
-    //hide results
+    //hide results and form 
     $("#searchResults").empty();
     $("#saveForm").removeClass("show").addClass("hide");
 })
