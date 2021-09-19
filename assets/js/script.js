@@ -5,7 +5,7 @@ if (JSON.parse(localStorage.getItem("synonym-groups"))) {
 } else {
     synonymGroups = []
 }
-
+generateRandomWord()
 //navigation
 function changeView(section) {
     //hides all section tags
@@ -19,13 +19,11 @@ $("#searchNav, #inspirationNav, #savedNav").on("click", function (event) {
     //grabs current section depending on which nav link was clicked
     var section = this.id.split("Nav")[0]
     //passes that section to the changeView function
-    changeView($("#" + section))
-    if (section === "inspiration") {
-        generateRandomWord()
-    }
-    else if (section === "saved") {
+  
+    if (section === "saved") {
         generateSavedSynonyms(synonymGroups)
     }
+    changeView($("#" + section))
 })
 
 //inspiration
