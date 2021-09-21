@@ -51,13 +51,19 @@ $("#searchBtn").on("click", function (event) {
         return;
     }
     //call api to generate synonyms
-    generateSynonyms(word)
+    synonymApiCall(word)
 })
 
-function generateSynonyms(word) {
+function synonymApiCall(word) {
     //TODO needs api key
-    let query = "https://wordsapiv1.p.mashape.com/words/" + word + "/synonyms"
-    fetch(query)
+    let query = "https://wordsapiv1.p.rapidapi.com/words/" + word + "/synonyms"
+    fetch(query, {
+        "method": "GET",
+        "headers":{
+            "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+            "x-rapidapi-key": ""
+        }
+    })
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -75,9 +81,11 @@ function generateSynonyms(synonymsArr) {
 }
 $("#saveBtn").on("click", function (event) {
     event.preventDefault();
+    console.log("hit")
+    console.log($("#currentSearch").text())
     //create object of searched word and it's synonyms
     let synObj = {
-        mainWord: $("#currentSearch").val(),
+        mainWord: $("#currentSearch").text(),
         synonyms: []
     }
     //loop over synonyms
@@ -103,7 +111,8 @@ function generateSavedSynonyms(synonymGroups) {
     //loop over saved searches
     $.each(synonymGroups, function () {
         //and append a card for each one
-        $("#saved").append(`<div><h3>${this.name}</h3><ul>${generateListItems(this.synonyms)}</ul></div>`)
+        console.log(this)
+        $("#saved").append(`<div><h3>${this.mainWord}</h3><ul>${generateListItems(this.synonyms)}</ul></div>`)
     })
 }
 function generateListItems(synonymsArr) { 
