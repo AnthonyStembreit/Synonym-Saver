@@ -61,7 +61,7 @@ function synonymApiCall(word) {
         "method": "GET",
         "headers":{
             "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-            "x-rapidapi-key": ""
+            "x-rapidapi-key": "6ec0b03c88mshe0c69e744b0bc5ap16d52cjsnb06422c56cfb"
         }
     })
         .then(res => res.json())
@@ -76,7 +76,7 @@ function generateSynonyms(synonymsArr) {
     //loops over synonyms returned from api call
     synonymsArr.map(function (syn) {
         //appends a check box input for each synonym to the html form
-        $("#searchResults").append(`<li><label>${syn}</label> <input type=checkbox class="pure-input addSyn" value=${syn}></input></li>`)
+        $("#searchResults").append(`<li><label>${syn}</label> <input type=checkbox class="pure-input addSyn" value="${syn}"></input></li>`)
     })
 }
 $("#saveBtn").on("click", function (event) {
@@ -96,13 +96,19 @@ $("#saveBtn").on("click", function (event) {
             synObj.synonyms.push(this.value)
         }
     })
-    //add searched word and its synonyms to the array of searches
-    synonymGroups.push(synObj)
-    //and store that list in local storage
-    localStorage.setItem("synonym-groups", JSON.stringify(synonymGroups))
-    //hide results and form 
-    $("#searchResults").empty();
-    $("#saveForm").removeClass("show").addClass("hide");
+    console.log(synObj.synonyms)
+    if(synObj.synonyms.length === 0){
+        console.log("must choose to save some synonyms")
+        return;
+    }else{
+        //add searched word and its synonyms to the array of searches
+        synonymGroups.push(synObj)
+        //and store that list in local storage
+        localStorage.setItem("synonym-groups", JSON.stringify(synonymGroups))
+        //hide results and form 
+        $("#searchResults").empty();
+        $("#saveForm").removeClass("show").addClass("hide");
+    }
 })
 
 //saved
