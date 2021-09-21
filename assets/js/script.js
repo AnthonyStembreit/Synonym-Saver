@@ -19,7 +19,7 @@ $("#searchNav, #inspirationNav, #savedNav").on("click", function (event) {
     //grabs current section depending on which nav link was clicked
     var section = this.id.split("Nav")[0]
     //passes that section to the changeView function
-  
+
     if (section === "saved") {
         generateSavedSynonyms(synonymGroups)
     }
@@ -41,7 +41,8 @@ function generateRandomWord() {
 $("#newWordBtn").on("click", generateRandomWord)
 
 //closes the error message
-$("#closeErr").on("click", function(){
+$("#closeErr").on("click", function (event) {
+    event.preventDefault();
     $("#error").removeClass("show").addClass("hide")
     $("#message").empty()
 })
@@ -54,30 +55,45 @@ $("#searchBtn").on("click", function (event) {
         $("#message").text("You must enter a word.")
         return;
     }
-    //show the save form
-    $("#saveForm").removeClass("hide").addClass("show")
     //call api to generate synonyms
     synonymApiCall(word)
+
 })
 
 function synonymApiCall(word) {
     let query = "https://wordsapiv1.p.rapidapi.com/words/" + word + "/synonyms"
     fetch(query, {
         "method": "GET",
-        "headers":{
+        "headers": {
             "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-            "x-rapidapi-key": "6ec0b03c88mshe0c69e744b0bc5ap16d52cjsnb06422c56cfb"
+            "x-rapidapi-key": ""
         }
     })
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            let searchedWord = data.word.charAt(0).toUpperCase() + data.word.slice(1)
-            $("#currentSearch").text(searchedWord)
-            generateSynonyms(data.synonyms)
+            if (data.success === false) {
+                $("#error").removeClass("hide").addClass("show")
+                $("#message").text(data.message)
+                return;
+            }
+            else  if(data.synonyms.length === 0 ){
+                $("#error").removeClass("hide").addClass("show")
+                $("#message").text("Sorry we can't find any synonyms for this word :(")
+            }
+            else {
+                $("#searchWord").val("")
+                $("#searchForm").removeClass("show").addClass("hide")
+                //show the save form
+                $("#saveForm").removeClass("hide").addClass("show")
+                let searchedWord = data.word.charAt(0).toUpperCase() + data.word.slice(1)
+                $("#currentSearch").text(searchedWord)
+                generateSynonyms(data.synonyms)
+            }
         })
 }
 function generateSynonyms(synonymsArr) {
+   
     //loops over synonyms returned from api call
     synonymsArr.map(function (syn) {
         //appends a check box input for each synonym to the html form
@@ -99,11 +115,11 @@ $("#saveBtn").on("click", function (event) {
             synObj.synonyms.push(this.value)
         }
     })
-    if(synObj.synonyms.length === 0){
+    if (synObj.synonyms.length === 0) {
         $("#error").removeClass("hide").addClass("show")
         $("#message").text("You must choose to save at least 1 synonym.")
         return;
-    }else{
+    } else {
         //add searched word and its synonyms to the array of searches
         synonymGroups.push(synObj)
         //and store that list in local storage
@@ -111,6 +127,7 @@ $("#saveBtn").on("click", function (event) {
         //hide results and form 
         $("#searchResults").empty();
         $("#saveForm").removeClass("show").addClass("hide");
+        $("#searchForm").removeClass("hide").addClass("show")
     }
 })
 
@@ -118,7 +135,7 @@ $("#saveBtn").on("click", function (event) {
 function generateSavedSynonyms(synonymGroups) {
     $("#saved").empty()
     //loop over saved searches
-    if(synonymGroups.length === 0){
+    if (synonymGroups.length === 0) {
         $("#saved").text("You have not saved any synonyms yet.")
     }
     $.each(synonymGroups, function () {
@@ -126,7 +143,7 @@ function generateSavedSynonyms(synonymGroups) {
         $("#saved").append(`<div><h3>${this.mainWord}</h3><ul>${generateListItems(this.synonyms)}</ul></div>`)
     })
 }
-function generateListItems(synonymsArr) { 
+function generateListItems(synonymsArr) {
     //and returns an array of li of the synonyms
     let mapped = synonymsArr.map(function (syn) {
         return `<li>${syn}</li>`
