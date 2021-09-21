@@ -40,22 +40,27 @@ function generateRandomWord() {
 //listens to the new word button and generates new word when clicked
 $("#newWordBtn").on("click", generateRandomWord)
 
+//closes the error message
+$("#closeErr").on("click", function(){
+    $("#error").removeClass("show").addClass("hide")
+    $("#message").empty()
+})
 //search
 $("#searchBtn").on("click", function (event) {
     event.preventDefault()
-    //show the save form
-    $("#saveForm").removeClass("hide").addClass("show")
     let word = $("#searchWord").val().toLowerCase()
     if (word === "") {
-        //TODO add error message
+        $("#error").removeClass("hide").addClass("show")
+        $("#message").text("You must enter a word.")
         return;
     }
+    //show the save form
+    $("#saveForm").removeClass("hide").addClass("show")
     //call api to generate synonyms
     synonymApiCall(word)
 })
 
 function synonymApiCall(word) {
-    //TODO needs api key
     let query = "https://wordsapiv1.p.rapidapi.com/words/" + word + "/synonyms"
     fetch(query, {
         "method": "GET",
@@ -81,8 +86,6 @@ function generateSynonyms(synonymsArr) {
 }
 $("#saveBtn").on("click", function (event) {
     event.preventDefault();
-    console.log("hit")
-    console.log($("#currentSearch").text())
     //create object of searched word and it's synonyms
     let synObj = {
         mainWord: $("#currentSearch").text(),
@@ -96,9 +99,9 @@ $("#saveBtn").on("click", function (event) {
             synObj.synonyms.push(this.value)
         }
     })
-    console.log(synObj.synonyms)
     if(synObj.synonyms.length === 0){
-        console.log("must choose to save some synonyms")
+        $("#error").removeClass("hide").addClass("show")
+        $("#message").text("You must choose to save at least 1 synonym.")
         return;
     }else{
         //add searched word and its synonyms to the array of searches
@@ -115,9 +118,11 @@ $("#saveBtn").on("click", function (event) {
 function generateSavedSynonyms(synonymGroups) {
     $("#saved").empty()
     //loop over saved searches
+    if(synonymGroups.length === 0){
+        $("#saved").text("You have not saved any synonyms yet.")
+    }
     $.each(synonymGroups, function () {
         //and append a card for each one
-        console.log(this)
         $("#saved").append(`<div><h3>${this.mainWord}</h3><ul>${generateListItems(this.synonyms)}</ul></div>`)
     })
 }
