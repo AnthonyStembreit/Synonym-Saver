@@ -19,6 +19,17 @@ section{
 button{
     border-radius: 8px !important;
 }
+form li::marker{
+    content: none;
+}
+li input{
+    margin: 5px;
+    margin-right: 10px;
+}
+#saveForm{
+    flex-direction: column;
+    align-items: center;
+}
 #inspiration{
     flex-direction: column;
     align-items: center;
@@ -40,4 +51,53 @@ button{
     padding: 15px;
     overflow: scroll;
     background-color: rgb(219, 175, 200) ;
+}
+@media screen and (max-width: 950px){  
+    body{
+        flex-direction: column;
+        align-items: unset;
+    } 
+    section{
+        width:100%;
+        margin:unset;
+        margin-top: 20px;
+        padding:unset;
+        flex-direction: column;
+        padding-top:15px;
+        padding-bottom:15px;
+        align-items: center;
+    }
+    #saved{
+        width: 100%;
+    }
+    #saved div{
+        width:80%
+    }
+    form{
+        width: 95%;
+        flex-direction: column;
+        align-items: center;
+    }
+    #searchWord{
+        width: 95%;
+        margin: 0px;
+    }
+
+    button{
+       width: 95%;
+       margin: 0px;
+    }
+    .navbar{
+        width:100%;
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 350px){
+    
+#newWordBtn{
+    font-size: 20px;
+}
+
+
 }

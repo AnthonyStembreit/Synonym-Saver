@@ -66,12 +66,11 @@ function synonymApiCall(word) {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-            "x-rapidapi-key": ""
+            "x-rapidapi-key": "6ec0b03c88mshe0c69e744b0bc5ap16d52cjsnb06422c56cfb"
         }
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             if (data.success === false) {
                 $("#error").removeClass("hide").addClass("show")
                 $("#message").text(data.message)
@@ -82,10 +81,12 @@ function synonymApiCall(word) {
                 $("#message").text("Sorry we can't find any synonyms for this word :(")
             }
             else {
+                //clear search input and hide search form
                 $("#searchWord").val("")
                 $("#searchForm").removeClass("show").addClass("hide")
                 //show the save form
                 $("#saveForm").removeClass("hide").addClass("show")
+                //change searched word to uppercase and present it to user
                 let searchedWord = data.word.charAt(0).toUpperCase() + data.word.slice(1)
                 $("#currentSearch").text(searchedWord)
                 generateSynonyms(data.synonyms)
@@ -97,7 +98,7 @@ function generateSynonyms(synonymsArr) {
     //loops over synonyms returned from api call
     synonymsArr.map(function (syn) {
         //appends a check box input for each synonym to the html form
-        $("#searchResults").append(`<li><label>${syn}</label> <input type=checkbox class="pure-input addSyn" value="${syn}"></input></li>`)
+        $("#searchResults").append(`<li><input type=checkbox class="pure-input addSyn" value="${syn}"></input><label>${syn}</label></li> `)
     })
 }
 $("#saveBtn").on("click", function (event) {
