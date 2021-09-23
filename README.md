@@ -37,5 +37,5 @@ So that I can gain inspiration for my next work
 * [AnthonyStembreit](https://github.com/AnthonyStembreit)
 * stembreit@gmail.com
         
- If you have any additional question feel free to message or email me.
+ If you have any questions feel free to message or email me.
 
