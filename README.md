@@ -24,11 +24,11 @@ I want to generate random words
 So that I can gain inspiration for my next work
 
 ## Tech Used
-* [Pure CSS Library](https://purecss.io/)
 * Local Storage
 * jQuery
 * HTML
 * CSS
+* [Pure CSS Library](https://purecss.io/)
 * [WordsApi](https://www.wordsapi.com/)
 * [Random Word Api](https://random-word-form.herokuapp.com/random/adjective)
 
