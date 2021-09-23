@@ -1,8 +1,8 @@
 .show{
-    display:flex;
+    display:flex !important;
 }
 .hide{
-    display:none;
+    display:none !important;
 }
 body{
     display:flex;
