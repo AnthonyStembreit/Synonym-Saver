@@ -15,6 +15,7 @@ section{
     padding: 25px;
     border-radius: 15px;
     background-color: rgb(170, 120, 130);
+    margin-bottom: 20px;
 }
 button{
     border-radius: 8px !important;
