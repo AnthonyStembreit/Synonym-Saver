@@ -7,13 +7,24 @@ Synonym Saver is a web application for poets and writers alike to search for syn
 
 ## User Story 
 As a poet
+
+
 I want to save synonyms associated with a word I use often
+
+
 So that I can avoid being repetitive in my poetry 
-I also want to generate random adjectives
-So that I can get inspiration for my next poem and break my writers block
+
+
+As a writer
+
+
+I want to generate random words
+
+
+So that I can gain inspiration for my next work
 
 ## Tech Used
-* Pure CSS Library
+* [Pure CSS Library](https://purecss.io/)
 * Local Storage
 * jQuery
 * HTML
