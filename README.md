@@ -39,3 +39,10 @@ So that I can gain inspiration for my next work
         
  If you have any questions feel free to message or email me.
 
+## Screen-Shots
+
+![Screen Shot 2021-09-23 at 10 57 28 AM](https://user-images.githubusercontent.com/64037800/134553403-60e4af78-ef6a-4560-83f2-86f7a5ff6223.png)
+![Screen Shot 2021-09-23 at 12 07 53 PM](https://user-images.githubusercontent.com/64037800/134553413-a3b9d5cb-bc40-440c-bc7e-69d1c76829bc.png)
+![Screen Shot 2021-09-23 at 12 09 53 PM](https://user-images.githubusercontent.com/64037800/134553425-14fe758a-da83-4bca-8aad-510af3e4e6d8.png)
+![Screen Shot 2021-09-23 at 12 09 43 PM](https://user-images.githubusercontent.com/64037800/134553431-60edb0c0-0a1b-4b81-b718-d054702e3836.png)
+
