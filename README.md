@@ -1,6 +1,7 @@
 # Synonym-Saver
 
-## Deployed Link https://anthonystembreit.github.io/Synonym-Saver/
+## Deployed Link 
+https://anthonystembreit.github.io/Synonym-Saver/
 
 ## Description 
 Synonym Saver is a web application for poets and writers alike to search for synonyms of their most used words and save them in groups. The website also has an inspiration feature that generates random descriptive words to set the mood for your next work. 
