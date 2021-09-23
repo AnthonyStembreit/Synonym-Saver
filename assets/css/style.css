@@ -108,7 +108,8 @@ li input{
         width: 100%;
     }
     #saved div{
-        width:80%
+        width:80%;
+        margin:5px;
     }
     form{
         width: 95%;
