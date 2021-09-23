@@ -26,9 +26,39 @@ li input{
     margin: 5px;
     margin-right: 10px;
 }
+#search{
+    width: 60%;
+    justify-content: center;
+}
+#searchForm{
+    width:100%;
+    display: flex;
+    justify-content: space-around;
+}
+#searchBtn{
+    width: 20%;
+}
+#searchWord{
+    width:75%;
+}
 #saveForm{
     flex-direction: column;
     align-items: center;
+    font-size: 22px;
+}
+#currentSearch{
+    font-weight: 900;
+    font-size: x-large;
+}
+#searchResults li{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#options{
+    display: flex;
+}
+#options button{
+    margin:5px
 }
 #inspiration{
     flex-direction: column;
@@ -56,6 +86,7 @@ li input{
     body{
         flex-direction: column;
         align-items: unset;
+        background-color: gainsboro;
     } 
     section{
         width:100%;
@@ -66,6 +97,12 @@ li input{
         padding-top:15px;
         padding-bottom:15px;
         align-items: center;
+    }
+    #search{
+        width: 100%;
+    }
+    #searchBtn{
+        width: 90%;
     }
     #saved{
         width: 100%;
@@ -82,7 +119,7 @@ li input{
         width: 95%;
         margin: 0px;
     }
-
+   
     button{
        width: 95%;
        margin: 0px;

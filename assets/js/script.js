@@ -131,6 +131,11 @@ $("#saveBtn").on("click", function (event) {
         $("#searchForm").removeClass("hide").addClass("show")
     }
 })
+$("#noSynonyms").on("click", function(event){
+    event.preventDefault()
+    $("#saveForm").removeClass("show").addClass("hide");
+    $("#searchForm").removeClass("hide").addClass("show")
+})
 
 //saved
 function generateSavedSynonyms(synonymGroups) {
